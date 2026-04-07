@@ -267,22 +267,22 @@ function render() {
       <div class="meta">${[item.distrito, item.provincia, item.departamento].filter(Boolean).join(" · ")}</div>
 
       <div class="row">
-        <div class="label">Dirección</div>
+        <div class="label">📍 Dirección</div>
         <div class="value">${item.direccion || "No disponible"}</div>
       </div>
 
       <div class="row">
-        <div class="label">Gerente de agencia</div>
+        <div class="label">👤 Gerente de agencia</div>
         <div class="value">${item.gerente || "No disponible"}</div>
       </div>
 
       <div class="row">
-        <div class="label">Correo de gerente</div>
+        <div class="label">📧 Correo de gerente</div>
         <div class="value">${item.correo ? `<a href="mailto:${item.correo}">${item.correo}</a>` : "No disponible"}</div>
       </div>
 
       <div class="row">
-        <div class="label">Horario de refrigerio</div>
+        <div class="label">🕐 Horario de refrigerio</div>
         <div class="value">${item.refrigerio || "No disponible"}</div>
       </div>
 
