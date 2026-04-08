@@ -244,7 +244,7 @@ function animateCounter(target){
     const eased = 1 - Math.pow(1 - progress, 3);
     const current = Math.round(start + (end - start) * eased);
 
-summaryBox.textContent = `${current} agencias${current === 1 ? "" : "s"} mostradas${current === 1 ? "" : "s"}`;
+summaryBox.textContent = `${current} agencia${current === 1 ? "" : "s"} mostrada${current === 1 ? "" : "s"}`;
     if(progress < 1){
       requestAnimationFrame(update);
     } else {
