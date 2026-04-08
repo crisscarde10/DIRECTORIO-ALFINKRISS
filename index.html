@@ -217,7 +217,8 @@ const searchEl = document.getElementById("search");
 const departamentoEl = document.getElementById("departamento");
 const provinciaEl = document.getElementById("provincia");
 const distritoEl = document.getElementById("distrito");
-
+let lastCount = 0;
+  
 function normalize(text) {
   return (text || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 }
@@ -232,6 +233,28 @@ function mapLink(item) {
   }
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.direccion || item.agencia)}`;
 }
+function animateCounter(target){
+  const start = lastCount;
+  const end = target;
+  const duration = 450;
+  const startTime = performance.now();
+
+  function update(now){
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(start + (end - start) * eased);
+
+summaryBox.textContent = `${current} agencias${current === 1 ? "" : "s"} mostradas${current === 1 ? "" : "s"}`;
+    if(progress < 1){
+      requestAnimationFrame(update);
+    } else {
+      lastCount = end;
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+  
 
 function uniqueValues(items, key) {
   return [...new Set(items.map(x => x[key]).filter(Boolean))].sort((a,b) => a.localeCompare(b, "es"));
@@ -280,8 +303,7 @@ function render() {
       (!dist || item.distrito === dist);
   });
 
-  summaryBox.textContent = `${filtered.length} agencia${filtered.length === 1 ? "" : "s"} mostrada${filtered.length === 1 ? "" : "s"}`;
-
+animateCounter(filtered.length);
   if (!filtered.length) {
     resultsEl.innerHTML = `<div class="empty">No se encontraron agencias con esos filtros.</div>`;
     return;
